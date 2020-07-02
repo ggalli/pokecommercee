@@ -1,10 +1,24 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
+import PokecardsList from './components/PokecardsList';
 
 function App() {
-  return (
-    <h1>Hello!</h1>
-  );
+	return (
+		<main>
+			<section className="shopping">
+
+				<div className="shopping-list">
+					<h1>Pokecommerce</h1>
+
+					<PokecardsList />
+				</div>
+
+				<div className="shopping-cart">
+
+				</div>
+			</section>
+		</main>
+	);
 }
 
 export default App;
