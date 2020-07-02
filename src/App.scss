@@ -1,0 +1,41 @@
+@import "./css/reset.css";
+@import "./css/pokecard.scss";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+main{
+	padding: 50px;
+}
+
+h1{
+	font-size: 1.5em;
+	margin-bottom: 15px;
+}
+
+.shopping{
+	display: flex;
+	height: calc(100vh - 200px);
+	background-color: #eee;
+	border-radius: 10px;
+	padding: 40px;
+}
+
+.shopping-list{
+	width: 70%;
+}
+
+.shopping-cart{
+	width: 30%;
+}
+
+.pokecards-container{
+	height: calc(100% - 40px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.pokecards-list{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+
+
