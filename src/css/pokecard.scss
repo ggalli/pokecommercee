@@ -1,0 +1,72 @@
+.pokecard{
+	position: relative;
+	display: inline-block;
+	width: 200px;
+	height: 220px;
+	margin: 10px;
+	.card{
+		position: relative;
+		width: 100%;
+		height: 100%;
+		background: #232323;
+		border-radius: 20px;
+		overflow: hidden;
+		
+		.imgBx{
+			position: absolute;
+			top: 40%;
+			left: 50%;
+    	transform: translateX(-50%);
+			z-index: 1000;
+			width: 80px;
+			transition: 0.5s;
+			img{
+				position: absolute;
+				width: 100%;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+		}
+		&:hover .imgBx{
+			top: 25%;
+			// transform: translateY(0%);
+		}
+		.content{
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			height: 75px;
+			text-align: center;
+			transition: 0.5s;
+			z-index: 10;
+			button{
+				display: inline-block;
+				padding: 10px 20px;
+				background: #fff;
+				border-radius: 4px;
+				margin-top: 10px;
+				font-weight: 600;
+				color: #111;
+				opacity: 0;
+				transform: translateY(50%);
+				transition: 0.5s;
+			}
+		}
+		&:hover .content{
+			height: 120px;
+			button{
+				opacity: 1;
+				transform: translateY(0);
+				transition-delay: 0.5s;
+			}
+		}
+		h3{
+			position: relative;
+			font-weight: 600;
+			letter-spacing: 1px;
+			color: #fff;
+		}
+
+	}
+}
