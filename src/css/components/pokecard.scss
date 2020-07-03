@@ -8,7 +8,7 @@
 		position: relative;
 		width: 100%;
 		height: 100%;
-		background: #232323;
+		background: $dark-blue;
 		border-radius: 20px;
 		overflow: hidden;
 		
@@ -42,8 +42,8 @@
 			z-index: 10;
 			button{
 				display: inline-block;
-				padding: 10px 20px;
-				background: #fff;
+				padding: 5px 10px;
+				background: $yellow;
 				border-radius: 4px;
 				margin-top: 10px;
 				font-weight: 600;
@@ -56,16 +56,17 @@
 		&:hover .content{
 			height: 120px;
 			button{
+				border: 0;
 				opacity: 1;
 				transform: translateY(0);
-				transition-delay: 0.5s;
+				transition-delay: 0.2s;
 			}
 		}
 		h3{
 			position: relative;
 			font-weight: 600;
 			letter-spacing: 1px;
-			color: #fff;
+			color: $yellow;
 		}
 
 	}
