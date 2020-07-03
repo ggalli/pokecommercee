@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import api from '../api';
+import React from 'react';
+import Button from './Button';
 
 const Pokecard = ({ title, imgUrl }) => {
 	return (
@@ -10,7 +10,9 @@ const Pokecard = ({ title, imgUrl }) => {
 				</div>
 				<div className="content">
 					<h3>{title}</h3>
-					<button>Add to cart</button>
+					<Button 
+						text="Add to cart"
+					/>
 				</div>
 			</div>
 		</div>
@@ -18,37 +20,7 @@ const Pokecard = ({ title, imgUrl }) => {
 }
 
 
-function PokecardsList() {
-	const [pokemons, setPokemons] = useState([]);
-	const [nextPage, setNextPage] = useState("");
-	const [prevPage, setPrevpage] = useState("");
-
-	const getAllPokemons = async () => {
-		let response = await api.get('/pokemon');
-		const { next, previous, results } = response.data;
-
-		setNextPage(next);
-		setPrevpage(previous);
-
-		const all = await Promise.all(results.map(item => api.get(item.url)));
-
-		const data = all.map(response => {
-			let data = response.data;
-			return {
-				id: data.id,
-				name: data.name,
-				image: `https://pokeres.bastionbot.org/images/pokemon/${data.id}.png`
-			}
-		});
-
-		setPokemons(data)
-
-	}
-
-	useEffect(() => {
-		getAllPokemons()
-	}, [])
-
+function PokecardsList({pokemons}) {
 	return (
 		<div className="pokecards-container">
 			<div className="pokecards-list">
