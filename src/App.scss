@@ -1,40 +1,63 @@
+@import "./css/variables.scss";
 @import "./css/reset.css";
-@import "./css/pokecard.scss";
+@import "./css/components/pokecard.scss";
+@import "./css/components/cart.scss";
+@import "./css/components/button.scss";
+@import "./css/components/modal.scss";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
+body{
+	background-color: #eee;
+}
+
 main{
-	padding: 50px;
+	padding: 40px;
 }
 
 h1{
 	font-size: 1.5em;
-	margin-bottom: 15px;
+	margin-bottom: 55px;
+	color: $yellow;
+	margin-left: 10px;
 }
 
 .shopping{
 	display: flex;
-	height: calc(100vh - 200px);
-	background-color: #eee;
+	justify-content: space-between;
+	height: calc(100vh - 160px);
+	background-color: $blue;
 	border-radius: 10px;
 	padding: 40px;
 }
 
 .shopping-list{
 	width: 70%;
+	margin-right: 20px;
 }
 
 .shopping-cart{
-	width: 30%;
 }
 
 .pokecards-container{
-	height: calc(100% - 40px);
+	height: calc(100% - 80px);
   overflow-y: auto;
   overflow-x: hidden;
 }
 .pokecards-list{
 	display: flex;
 	flex-wrap: wrap;
+}
+
+.finishCart-text{
+	font-size: 1.5em;
+	color: $dark-blue;
+}
+.finishCart-btn{
+	background-color: $dark-blue;
+	margin-top: 30px;
+	padding: 5px 10px;
+	font-size: 1.2em;
+	color: $yellow;
 }
 
 
