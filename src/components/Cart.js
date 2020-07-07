@@ -24,7 +24,7 @@ function Cart({ items, total, finishCart }) {
 			<Button
 				className="finishCart"
 				onClick={finishCart}
-				disabled={items.length == 0}
+				disabled={items.length === 0}
 			>
 				Finalizar
 			</Button>
