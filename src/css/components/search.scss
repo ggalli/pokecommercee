@@ -1,0 +1,36 @@
+.search-container {
+	display: flex;
+	height: 35px;
+	padding: 5px;
+	border-radius: 25px;
+	overflow: hidden;
+	background: $dark-blue;
+}
+
+#search {
+	width: 200px;
+	padding: 0 10px;
+	color: $yellow;
+	border: 0;
+	outline: 0;
+	font-size: 14px;
+	font-weight: 600;
+	background: transparent;
+	&::placeholder{
+		color: $blue;
+	}
+}
+
+.search-btn {
+	width: 35px;
+	padding: 0px;
+	background: $blue;
+	border: 0;
+	border-radius: 20px;
+	outline: 0;
+	cursor: pointer;
+}
+
+.search-icon{
+	fill: $yellow;
+}
