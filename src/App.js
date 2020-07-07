@@ -66,7 +66,7 @@ function App() {
 		getPokemons()
 	}, []);
 
-	const [cartItems, setCartItems] = useState([]);
+	const [cartItems, setCartItems] = useState(JSON.parse(localStorage.getItem('cart_items')) || []);
 	const [totalPrice, setTotalPrice] = useState(0);
 
 	const addToCart = (item) => {
@@ -84,6 +84,7 @@ function App() {
 
 	useEffect(() => {
 		calculateTotal()
+		localStorage.setItem('cart_items', JSON.stringify(cartItems));
 	}, [cartItems])
 
 	const [finishCartModal, setFinishCartModal] = useState(false);
@@ -92,6 +93,7 @@ function App() {
 	const onCloseFinishModal = () => {
 		setCartItems([]);
 		setFinishCartModal(false);
+		localStorage.removeItem('cart_items')
 	}
 
 	return (
