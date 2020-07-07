@@ -6,23 +6,12 @@ import Cart from './components/Cart';
 import randomInt from './utils/randomInt';
 import Modal from './components/Modal';
 import Button from './components/Button';
+import Search from './components/Search';
 
-function App() {
-	const [pokemons, setPokemons] = useState([]);
-	const [nextPage, setNextPage] = useState("");
-	const [prevPage, setPrevpage] = useState("");
-
-	const getAllPokemons = async () => {
-		let response = await api.get('/pokemon');
-		const { next, previous, results } = response.data;
-
-		setNextPage(next);
-		setPrevpage(previous);
-
-		const all = await Promise.all(results.map(item => api.get(item.url)));
-
-		const data = all.map(response => {
-			const { id, name, abilities } = response.data;
+const deserialize = (data) => {
+	if (Array.isArray(data)) {
+		return data.map(item => {
+			const { id, name, abilities } = item.data;
 
 			return {
 				id,
@@ -32,12 +21,49 @@ function App() {
 				abilities: abilities.map(item => item.ability.name)
 			}
 		});
+	} else {
+		const { id, name, abilities } = data;
 
-		setPokemons(data)
+		return [{
+			id,
+			name,
+			image: `https://pokeres.bastionbot.org/images/pokemon/${id}.png`,
+			price: randomInt(100, 10000),
+			abilities: abilities.map(item => item.ability.name)
+		}]
+	}
+
+}
+
+function App() {
+	const [pokemons, setPokemons] = useState([]);
+	const [nextPage, setNextPage] = useState("");
+	const [prevPage, setPrevpage] = useState("");
+
+	const getPokemons = async (filter) => {
+		let url = filter ? `/pokemon/${filter}` : '/pokemon';
+		let data;
+
+		let response = await api.get(url);
+
+		if (filter) {
+			data = deserialize(response.data);
+		} else {
+			const { next, previous, results } = response.data;
+
+			setNextPage(next);
+			setPrevpage(previous);
+
+			const all = await Promise.all(results.map(item => api.get(item.url)));
+
+			data = deserialize(all);
+		}
+
+		setPokemons(data);
 	}
 
 	useEffect(() => {
-		getAllPokemons()
+		getPokemons()
 	}, []);
 
 	const [cartItems, setCartItems] = useState([]);
@@ -72,7 +98,10 @@ function App() {
 		<main>
 			<section className="shopping">
 				<div className="shopping-list">
-					<h1>Pokecommerce</h1>
+					<header className="header">
+						<h1>Pokecommerce</h1>
+						<Search searchPokemon={getPokemons} />
+					</header>
 
 					<div className="pokecards-container">
 						<div className="pokecards-list">
@@ -87,9 +116,9 @@ function App() {
 					</div>
 				</div>
 
-				<Cart items={cartItems} total={totalPrice} finishCart={finishModalHandler}/>
+				<Cart items={cartItems} total={totalPrice} finishCart={finishModalHandler} />
 			</section>
-			{finishCartModal ? 
+			{finishCartModal ?
 				<Modal onClose={onCloseFinishModal}>
 					<h3 className="finishCart-text">Compra realizada com sucesso!</h3>
 					<Button onClick={onCloseFinishModal} className="finishCart-btn">OK</Button>

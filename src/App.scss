@@ -4,6 +4,7 @@
 @import "./css/components/cart.scss";
 @import "./css/components/button.scss";
 @import "./css/components/modal.scss";
+@import "./css/components/search.scss";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 body{
@@ -12,6 +13,11 @@ body{
 
 main{
 	padding: 40px;
+}
+
+.header{
+	display: flex;
+	justify-content: space-between;
 }
 
 h1{
