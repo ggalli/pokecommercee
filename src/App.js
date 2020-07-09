@@ -7,6 +7,9 @@ import randomInt from './utils/randomInt';
 import Modal from './components/Modal';
 import Button from './components/Button';
 import Search from './components/Search';
+import CartMobile from './components/Cart-mobile';
+import Pagination from './components/Pagination';
+import Loading from './components/Loading';
 
 const deserialize = (data) => {
 	if (Array.isArray(data)) {
@@ -39,10 +42,14 @@ function App() {
 	const [pokemons, setPokemons] = useState([]);
 	const [nextPage, setNextPage] = useState("");
 	const [prevPage, setPrevpage] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 
-	const getPokemons = async (filter) => {
+	const getPokemons = async (filter, changePageUrl) => {
+		setIsLoading(true);
+
 		let url = filter ? `/pokemon/${filter}` : '/pokemon';
 		let data;
+		url = changePageUrl ? changePageUrl : url;
 
 		let response = await api.get(url);
 
@@ -59,6 +66,7 @@ function App() {
 			data = deserialize(all);
 		}
 
+		setTimeout(() => setIsLoading(false), 1000);
 		setPokemons(data);
 	}
 
@@ -96,6 +104,18 @@ function App() {
 		localStorage.removeItem('cart_items')
 	}
 
+	const removeCartItem = (itemId) => {
+		let items = cartItems;
+		const index = items.map(item => item.id).indexOf(itemId);
+		items.splice(index, 1);
+		setCartItems(items);
+		localStorage.setItem('cart_items', JSON.stringify(cartItems));
+	}
+
+	const changePage = (url) => {
+		getPokemons(null, url);
+	}
+
 	return (
 		<main>
 			<section className="shopping">
@@ -107,18 +127,26 @@ function App() {
 
 					<div className="pokecards-container">
 						<div className="pokecards-list">
-							{pokemons.map(pokemon => (
-								<Pokecard
-									key={pokemon.id}
-									pokemon={pokemon}
-									addToCart={() => addToCart(pokemon)}
-								/>
-							))}
+
+							{isLoading ?
+								<Loading /> :
+
+								pokemons.map(pokemon => (
+									<Pokecard
+										key={pokemon.id}
+										pokemon={pokemon}
+										addToCart={() => addToCart(pokemon)}
+									/>
+								))
+							}
+
 						</div>
 					</div>
+					<Pagination changePage={changePage} nextPage={nextPage} prevPage={prevPage} />
 				</div>
 
-				<Cart items={cartItems} total={totalPrice} finishCart={finishModalHandler} />
+				<CartMobile count={cartItems.length} />
+				<Cart items={cartItems} total={totalPrice} finishCart={finishModalHandler} removeItem={removeCartItem} />
 			</section>
 			{finishCartModal ?
 				<Modal onClose={onCloseFinishModal}>
