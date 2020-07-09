@@ -16,7 +16,7 @@
 		flex: 1 1 auto;
 		overflow-y: auto;
 		width: calc(100% + 40px);
-    margin-left: -20px;
+		margin-left: -20px;
 		li{
 			display: flex;
 			align-items: center;
@@ -32,6 +32,15 @@
 			.name{
 				margin-left: 20px;
 				flex: 1 1 auto;
+			}
+			.delete{
+				margin-left: 10px;
+				height: 20px;
+				border: 0;
+				padding: 0;
+				background: none;
+				outline: none;
+				cursor: pointer;
 			}
 			img{
 				width: 50px;
