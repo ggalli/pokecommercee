@@ -17,7 +17,6 @@
 			top: 40%;
 			left: 50%;
     	transform: translateX(-50%);
-			z-index: 100;
 			width: 80px;
 			transition: 0.5s;
 			img{
@@ -39,7 +38,6 @@
 			height: 85px;
 			text-align: center;
 			transition: 0.5s;
-			z-index: 10;
 			color: #fff;
 			display: flex;
 			flex-direction: column;

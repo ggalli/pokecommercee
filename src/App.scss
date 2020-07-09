@@ -5,60 +5,123 @@
 @import "./css/components/button.scss";
 @import "./css/components/modal.scss";
 @import "./css/components/search.scss";
+@import "./css/components/pagination.scss";
+@import "./css/components/loading.scss";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-body{
+// @font-face {
+//   font-family: 'PokemonHollow';
+// 	src: local('PokemonHollow'), 
+// 		url(./fonts/Pokemon_Hollow.ttf) format('ttf'),
+// }
+// @font-face {
+//   font-family: 'PokemonSolid';
+// 	src: local('PokemonSolid'), 
+// 		url(./fonts/Pokemon_Solid.ttf) format('ttf');
+// }
+
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-track {
+	border-radius: 10px;
+	box-shadow: inset 0 0 4px $dark-blue; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: $yellow; 
+	border-radius: 10px;
+}
+
+body {
 	background-color: #eee;
 }
 
-main{
-	padding: 40px;
+main {
+	padding: 30px;
 }
 
-.header{
+.header {
 	display: flex;
 	justify-content: space-between;
 }
 
-h1{
-	font-size: 1.5em;
-	margin-bottom: 55px;
+h1 {
+	font-size: 2em;
+	margin-bottom: 40px;
 	color: $yellow;
 	margin-left: 10px;
 }
 
-.shopping{
+.shopping {
 	display: flex;
 	justify-content: space-between;
-	height: calc(100vh - 160px);
+	height: calc(100vh - 120px);
 	background-color: $blue;
 	border-radius: 10px;
-	padding: 40px;
+	padding: 30px;
 }
 
-.shopping-list{
+.shopping-list {
 	width: 70%;
 	margin-right: 20px;
 }
 
-.shopping-cart{
+.cart-btn {
+	position: absolute;
+	right: 30px;
+	display: none;
+	width: 35px;
+	height: 35px;
+	background: $blue;
+	border: 4px solid $dark-blue;
+	border-radius: 22px;
+	cursor: pointer;
+
+	&:hover ~ .shopping-cart {
+		opacity: 1;
+		z-index: 10;
+		transition: .2s;
+	}
+
+	.cart-counter{
+		position: absolute;
+		background: $yellow;
+    bottom: -10px;
+    right: -5px;
+    padding: 2px 5px;
+		border-radius: 5px;
+		font-weight: 600;
+	}
+
+	svg {
+		position: absolute;
+		top: 7px;
+		left: 7px;
+		fill: $yellow;
+	}
 }
 
-.pokecards-container{
-	height: calc(100% - 80px);
-  overflow-y: auto;
-  overflow-x: hidden;
+.pokecards-container {
+	position: relative;
+	height: calc(100% - 120px);
+	overflow-y: auto;
+	overflow-x: hidden;
 }
-.pokecards-list{
+
+.pokecards-list {
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: space-evenly;
 }
 
-.finishCart-text{
+.finishCart-text {
 	font-size: 1.5em;
 	color: $dark-blue;
 }
-.finishCart-btn{
+
+.finishCart-btn {
 	background-color: $dark-blue;
 	margin-top: 30px;
 	padding: 5px 10px;
@@ -66,5 +129,51 @@ h1{
 	color: $yellow;
 }
 
+@media screen and (max-width: 1024px) {
+	main {
+		padding: 0;
+	}
 
+	.shopping {
+		position: relative;
+		height: calc(100vh - 60px);
+		border-radius: 0;
+	}
 
+	.shopping-list {
+		width: 100%;
+		margin: 0;
+
+		.header {
+			h1 {
+				flex: 1 1 auto;
+			}
+
+			.search-container {
+				margin-right: 60px;
+			}
+		}
+	}
+
+	.cart-btn {
+		display: block;
+	}
+
+	.shopping-cart {
+		position: absolute;
+		right: 30px;
+		top: 85px;
+		z-index: -1;
+		border: 5px solid $yellow;
+		opacity: 0;
+		transition: .5s;
+		&:hover{
+			opacity: 1;
+			z-index: 10;
+		}
+
+		.cart-items{
+			max-height: 250px;
+		}
+	}
+}
